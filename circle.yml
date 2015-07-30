@@ -1,0 +1,20 @@
+machine:
+  environment:
+    GOROOT_BOOTSTRAP: /usr/local/go
+
+  post:
+    - mkdir -p ~/.go_workspace/src
+    - mkdir -p ~/.go_workspace/pkg
+    - mkdir -p ~/.go_workspace/bin
+    - git clone https://go.googlesource.com/go $HOME/go
+    - ./make.bash:
+        pwd: $HOME/go/src
+    - cp -R * ~/.go_workspace/bin:
+        pwd: $HOME/go/bin
+    - cp -R * ~/.go_workspace/pkg:
+        pwd: $HOME/go/pkg
+
+
+dependencies:
+  pre:
+    - go version
